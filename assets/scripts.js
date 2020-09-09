@@ -12,8 +12,8 @@ function createUsers() {
   document.querySelector("#list").innerHTML = "";
   users.map(({ email, name }, i) => {
     const li = document.createElement("li");
-    li.innerHTML = `<a href=# id=${i} class="user">
-                      <div onclick=deleteSelf()>
+    li.innerHTML = `<a href=# class="user">
+                      <div onclick=deleteSelf(${i})>
                         <ion-icon name="trash-outline"">
                         </ion-icon>
                       </div>
