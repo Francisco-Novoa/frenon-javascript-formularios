@@ -1,6 +1,10 @@
 function deleteSelf(i) {
   users.splice(i, 1);
   localStorage.setItem("users", JSON.stringify(users));
+  if (users.length == 0) {
+    document.getElementById("notification").innerHTML =
+      "Que esperas, ingresa un Usuario!";
+  }
   createUsers();
 }
 
