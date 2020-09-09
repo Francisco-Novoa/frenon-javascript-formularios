@@ -42,7 +42,6 @@ document.getElementById("frm").addEventListener("submit", () => {
     JSON.stringify([...users, { name: name, email: email }])
   );
   users = JSON.parse(localStorage.getItem("users")) || [];
-  console.log(document.getElementById("notification").innerHTML);
   if (document.getElementById("notification").innerHTML) {
     document.getElementById("notification").innerHTML = "";
   }
