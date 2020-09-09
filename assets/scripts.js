@@ -9,32 +9,34 @@ document.getElementById("frm").addEventListener("submit", () => {
       { name: event.target.name.value, email: event.target.email.value },
     ])
   );
-  users = JSON.parse(localStorage.getItem("users"));
+  users.append({
+    name: event.target.name.value,
+    email: event.target.email.value,
+  });
   if (document.getElementById("notification").innerHTML) {
     document.getElementById("notification").innerHTML = "";
   }
-  createUsers();
+  createUserList();
 });
-
-createUsers();
+createUserList();
 showNotification();
 
 function deleteSelf(i) {
   users.splice(i, 1);
   localStorage.setItem("users", JSON.stringify(users));
   showNotification();
-  createUsers();
+  createUserList();
 }
 
-function createUsers() {
+function createUserList() {
   document.querySelector("#list").innerHTML = "";
   users.map(({ email, name }, i) => {
     const li = document.createElement("li");
     li.innerHTML = `<a href=# class="user">
-                      <div onclick=deleteSelf(${i})>
-                        <ion-icon name="trash-outline"">
-                        </ion-icon>
-                      </div>
+                        <div onclick=deleteSelf(${i})>
+                          <ion-icon name="trash-outline"">
+                          </ion-icon>
+                        </div>
                         <div>
                           <h6>Name: ${name}</h6>
                           <h6>Email: ${email}</h6>
