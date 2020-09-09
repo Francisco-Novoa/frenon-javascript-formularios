@@ -24,6 +24,11 @@ function createUsers() {
 
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
+if (users.length === 0) {
+  document.getElementById("notification").innerHTML =
+    "Que esperas, ingresa un Usuario!";
+}
+
 document.getElementById("frm").addEventListener("submit", () => {
   event.preventDefault();
   const name = event.target.name.value;
@@ -33,6 +38,10 @@ document.getElementById("frm").addEventListener("submit", () => {
     JSON.stringify([...users, { name: name, email: email }])
   );
   users = JSON.parse(localStorage.getItem("users")) || [];
+  console.log(document.getElementById("notification").innerHTML);
+  if (document.getElementById("notification").innerHTML) {
+    document.getElementById("notification").innerHTML = "";
+  }
   createUsers();
 });
 
