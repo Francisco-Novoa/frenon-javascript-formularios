@@ -1,10 +1,28 @@
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+document.getElementById("frm").addEventListener("submit", () => {
+  event.preventDefault();
+  localStorage.setItem(
+    "users",
+    JSON.stringify([
+      ...users,
+      { name: event.target.name.value, email: event.target.email.value },
+    ])
+  );
+  users = JSON.parse(localStorage.getItem("users"));
+  if (document.getElementById("notification").innerHTML) {
+    document.getElementById("notification").innerHTML = "";
+  }
+  createUsers();
+});
+
+createUsers();
+showNotification();
+
 function deleteSelf(i) {
   users.splice(i, 1);
   localStorage.setItem("users", JSON.stringify(users));
-  if (users.length == 0) {
-    document.getElementById("notification").innerHTML =
-      "Que esperas, ingresa un Usuario!";
-  }
+  showNotification();
   createUsers();
 }
 
@@ -26,26 +44,9 @@ function createUsers() {
   });
 }
 
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-if (users.length === 0) {
-  document.getElementById("notification").innerHTML =
-    "Que esperas, ingresa un Usuario!";
-}
-
-document.getElementById("frm").addEventListener("submit", () => {
-  event.preventDefault();
-  const name = event.target.name.value;
-  const email = event.target.email.value;
-  localStorage.setItem(
-    "users",
-    JSON.stringify([...users, { name: name, email: email }])
-  );
-  users = JSON.parse(localStorage.getItem("users")) || [];
-  if (document.getElementById("notification").innerHTML) {
-    document.getElementById("notification").innerHTML = "";
+function showNotification() {
+  if (users.length === 0) {
+    document.getElementById("notification").innerHTML =
+      "Que esperas, ingresa un Usuario!";
   }
-  createUsers();
-});
-
-createUsers();
+}
